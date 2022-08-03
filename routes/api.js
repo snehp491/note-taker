@@ -10,4 +10,14 @@ app.get('/notes', (req, res) => {
 
 });
 
+app.post('/notes', (req, res) => {
+
+    const id = (new Date()).getTime();
+    const note = {id: id, title: req.body.title, text: req.body.text};
+
+    db.push(note);
+    fs.writeFileSync('./db/db.json', JSON.stringify(db));
+    res.json(db);
+});
+
 module.exports = app;
